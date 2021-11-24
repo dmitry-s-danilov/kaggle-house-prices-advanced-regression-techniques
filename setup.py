@@ -37,8 +37,7 @@ setup(
     python_requires='>=3.9',
     install_requires=[
         'pandas',
-        'matplotlib',
-        # 'scikit-learn',
+        # 'matplotlib',
     ],
     # extras_require={
     #     'dev': ['check-manifest'],
@@ -55,23 +54,23 @@ setup(
             # where='.',
             include=[
                 'sample3',
-                # 'datasets',
+                'datasets',
             ],
         )
     ),  # required
     package_dir={
         '': 'src',
         'sample3': 'sample3',
-        # 'datasets': 'datasets',
+        'datasets': 'datasets',
     },
     package_data={
         'sample2': ['data.txt'],
         'sample3': ['data.txt'],
-        # 'datasets': [
-        #     'train.csv',
-        #     'test.csv',
-        #     # 'sample_submission.csv'
-        # ],
+        'datasets': [
+            'train.csv',
+            'test.csv',
+            # 'sample_submission.csv'
+        ],
     },
 
     data_files=[('sample4_data', ['sample4/data.txt'])],
@@ -81,7 +80,7 @@ setup(
             'sample1=sample1:main',
             'sample2=sample2:main',
             'sample3=sample3:main',
-            # 'datasets=datasets:main',
+            'datasets=datasets:main',
         ],
     },
 )
