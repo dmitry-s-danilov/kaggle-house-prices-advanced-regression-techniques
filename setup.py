@@ -1,9 +1,12 @@
 from setuptools import setup, find_packages
 from pathlib import Path
 
+main_package_name = 'contest'
+main_package_dir = 'src'
+
 setup(
-    name='contest',  # required
-    version='0.0.1',  # required
+    name=main_package_name,
+    version='0.0.1',
 
     description='A house price prediction contest solution',
     long_description=(Path(__file__).parent.resolve() / 'README.md').read_text(encoding='utf-8'),
@@ -29,8 +32,6 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.9',
-        'Programming Language :: Python :: 3 :: Only',
     ],
     keywords='machine-learning, regression-contest, kaggle, python',
 
@@ -39,48 +40,17 @@ setup(
         'pandas',
         # 'matplotlib',
     ],
-    # extras_require={
-    #     'dev': ['check-manifest'],
-    #     'test': ['coverage'],
-    # },
 
-    py_modules=['sample1'],
-    packages=(
-        find_packages(
-            where='src',
-            include=['sample2'],
-        ) +
-        find_packages(
-            # where='.',
-            include=[
-                'sample3',
-                'datasets',
-            ],
-        )
-    ),  # required
-    package_dir={
-        '': 'src',
-        'sample3': 'sample3',
-        'datasets': 'datasets',
-    },
+    package_dir={main_package_name: main_package_dir},
+    packages=[
+        main_package_name + '.' + sub_package_name
+        for sub_package_name in find_packages(where=main_package_dir)
+    ],
     package_data={
-        'sample2': ['data.txt'],
-        'sample3': ['data.txt'],
-        'datasets': [
+        main_package_name + '.' + 'data': [
             'train.csv',
             'test.csv',
-            # 'sample_submission.csv'
-        ],
-    },
-
-    data_files=[('sample4_data', ['sample4/data.txt'])],
-
-    entry_points={
-        'console_scripts': [
-            'sample1=sample1:main',
-            'sample2=sample2:main',
-            'sample3=sample3:main',
-            'datasets=datasets:main',
+            'sample_submission.csv'
         ],
     },
 )

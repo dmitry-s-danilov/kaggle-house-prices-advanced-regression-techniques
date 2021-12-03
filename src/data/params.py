@@ -1,4 +1,4 @@
-data_load_params = dict(
+load_params = dict(
     # sep=',',
     # header=0,
     index_col='Id',

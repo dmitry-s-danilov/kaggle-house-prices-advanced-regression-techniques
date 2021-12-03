@@ -1,1 +1,0 @@
-Sample data to use in packaging setup.
