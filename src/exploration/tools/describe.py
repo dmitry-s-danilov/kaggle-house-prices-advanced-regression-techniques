@@ -3,26 +3,25 @@ from pandas import DataFrame, Series, MultiIndex, concat
 
 
 def describe(
-    data: Union[DataFrame, dict[Any, DataFrame]],
+    data: Union[DataFrame, dict[str, DataFrame]],
     descriptors: dict[Any, Callable[[DataFrame], Union[Series, Any]]],
     inverse: bool = False,
 ) -> DataFrame:
     if isinstance(data, DataFrame):
-        data_descriptions = {
-            descriptor_key: descriptor(data)
-            for descriptor_key, descriptor in descriptors.items()
+        descriptions = {
+            description_key: descriptor(data)
+            for description_key, descriptor in descriptors.items()
         }
 
         if all(
             [
-                isinstance(description_value, Series)
-                for description_value in data_descriptions.values()
+                isinstance(description, Series)
+                for description in descriptions.values()
             ]
         ):
-            data_descriptions = DataFrame(data_descriptions)
+            descriptions = DataFrame(descriptions)
         else:
-            data_descriptions = Series(data_descriptions)
-
+            descriptions = Series(descriptions)
     elif (
         isinstance(data, dict) and
         all(
@@ -32,10 +31,10 @@ def describe(
             ]
         )
     ):
-        data_descriptions = {
+        descriptions = {
             data_key: {
-                descriptor_key: descriptor(data_set)
-                for descriptor_key, descriptor in descriptors.items()
+                description_key: descriptor(data_set)
+                for description_key, descriptor in descriptors.items()
             }
             for data_key, data_set in data.items()
         }
@@ -44,43 +43,44 @@ def describe(
             [
                 all(
                     [
-                        isinstance(description_value, Series)
-                        for description_value in data_description.values()
+                        isinstance(description, Series)
+                        for description in data_descriptions.values()
                     ]
                 )
-                for data_description in data_descriptions.values()
+                for data_descriptions in descriptions.values()
             ]
         ):
-            data_descriptions = concat(
+            descriptions = concat(
                 [
                     DataFrame(
                         {
-                            (data_key, description_key): description_value
-                            for description_key, description_value in data_description.items()
+                            (data_key, description_key): description
+                            for description_key, description in data_descriptions.items()
                         }
                     )
-                    for data_key, data_description in data_descriptions.items()
+                    for data_key, data_descriptions in descriptions.items()
                 ],
                 axis=1,
             )
+
+            if inverse:
+                descriptions = descriptions[
+                    [
+                        (data_key, description_key)
+                        for description_key in descriptors.keys()
+                        for data_key in data.keys()
+                    ]
+                ]
+
+                descriptions.columns = MultiIndex.from_tuples(
+                    [
+                        descriptions_column[::-1]
+                        for descriptions_column in descriptions.columns
+                    ]
+                )
         else:
-            data_descriptions = DataFrame(data_descriptions)
-
-        if inverse:
-            data_descriptions = data_descriptions[
-                [
-                    (data_key, descriptor_key)
-                    for descriptor_key in descriptors.keys()
-                    for data_key in data.keys()
-                ]
-            ]
-            data_descriptions.columns = MultiIndex.from_tuples(
-                [
-                    description_column[::-1]
-                    for description_column in data_descriptions.columns
-                ]
-            )
+            descriptions = DataFrame(descriptions)
     else:
-        data_descriptions = None
+        descriptions = None
 
-    return data_descriptions
+    return descriptions

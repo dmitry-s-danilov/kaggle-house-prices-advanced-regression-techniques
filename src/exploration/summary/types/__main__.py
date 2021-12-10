@@ -1,5 +1,5 @@
 from pandas import option_context
-from .describe import customized_describe as describe
+from . import describe
 
 description = describe()
 

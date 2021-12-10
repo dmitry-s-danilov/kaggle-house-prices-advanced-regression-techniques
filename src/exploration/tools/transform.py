@@ -3,38 +3,38 @@ from pandas import DataFrame, Series
 
 
 def transform(
-    data: DataFrame,
+    data: Union[DataFrame, dict[Any, DataFrame]],
     transformers: list[
         Union[
             Callable[
-                [Union[Series, DataFrame]],
-                Union[Series, DataFrame]
+                [Union[Series, DataFrame, dict[Any, DataFrame]]],
+                Union[Series, DataFrame],
             ],
             tuple[
                 Any,
                 Callable[
                     [Union[Series, DataFrame]],
-                    Union[Series, DataFrame]
-                ]
+                    Union[Series, DataFrame],
+                ],
             ],
         ]
     ],
 ) -> DataFrame:
     if isinstance(transformers, list):
-        data_transformed = data.copy()
+        transformed_data = data.copy()
         for transformer in transformers:
             if isinstance(transformer, Callable):
-                data_transformed = transformer(data_transformed)
+                transformed_data = transformer(transformed_data)
             elif (
                 isinstance(transformer, tuple) and
                 len(transformer) == 2 and
                 isinstance(transformer[1], Callable)
             ):
-                sub_key, sub_transformer = transformer
-                data_transformed[sub_key] = sub_transformer(data_transformed[sub_key])
+                subset_key, subset_transformer = transformer
+                transformed_data[subset_key] = subset_transformer(transformed_data[subset_key])
             else:
-                data_transformed = None
+                transformed_data = None
                 break
     else:
-        data_transformed = None
-    return data_transformed
+        transformed_data = None
+    return transformed_data

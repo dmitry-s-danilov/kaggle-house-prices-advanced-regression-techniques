@@ -36,10 +36,8 @@ setup(
     keywords='machine-learning, regression-contest, kaggle, python',
 
     python_requires='>=3.9',
-    install_requires=[
-        'pandas',
-        # 'matplotlib',
-    ],
+    install_requires=['pandas'],
+    extras_require={'exploration': ['matplotlib']},
 
     package_dir={main_package_name: main_package_dir},
     packages=[
@@ -50,7 +48,7 @@ setup(
         main_package_name + '.' + 'data': [
             'train.csv',
             'test.csv',
-            'sample_submission.csv'
+            'sample_submission.csv',
         ],
     },
 )

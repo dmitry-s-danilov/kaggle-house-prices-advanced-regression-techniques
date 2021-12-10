@@ -34,7 +34,7 @@ def load(
             if not isinstance(print_info, Callable)\
             else print_info
         for data_key, data_set in data_sets.items():
-            print(f"<key '{data_key}'>")
+            print(f'{data_key}: {file_paths[data_key].name}')
             modified_print_info(data_set)
 
     return data_sets
