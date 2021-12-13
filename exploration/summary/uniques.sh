@@ -1,5 +1,4 @@
 #!/bin/bash
 
-# Script have to be run under project virtual environment.
-
+# python -m contest.exploration.summary.uniques.describe
 python -m contest.exploration.summary.uniques
