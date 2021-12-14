@@ -11,6 +11,8 @@ input_paths = [
     'types.ipynb',
     'nulls.ipynb',
     'uniques.ipynb',
+    'train.ipynb',
+    # 'test.ipynb',
 ]
 output_path = 'summary.ipynb'
 
@@ -23,3 +25,4 @@ args = [
 
 if __name__ == '__main__':
     run(args)
+
