@@ -1,40 +1,35 @@
 from typing import Callable, Any, Union
-from pandas import DataFrame, Series
+from pandas import DataFrame
 
 
 def transform(
-    data: Union[DataFrame, dict[Any, DataFrame]],
-    transformers: list[
-        Union[
-            Callable[
-                [Union[Series, DataFrame, dict[Any, DataFrame]]],
-                Union[Series, DataFrame],
-            ],
-            tuple[
-                Any,
-                Callable[
-                    [Union[Series, DataFrame]],
-                    Union[Series, DataFrame],
-                ],
-            ],
-        ]
-    ],
-) -> DataFrame:
+    data,
+    transformers: list[Union[Callable, tuple[Any, Callable], tuple[Any, Any, Callable]]],
+):
     if isinstance(transformers, list):
-        transformed_data = data.copy()
+        modified_data = data.copy()
         for transformer in transformers:
             if isinstance(transformer, Callable):
-                transformed_data = transformer(transformed_data)
+                modified_data = transformer(modified_data)
             elif (
                 isinstance(transformer, tuple) and
                 len(transformer) == 2 and
-                isinstance(transformer[1], Callable)
+                isinstance(transformer[-1], Callable) and
+                isinstance(modified_data, DataFrame)
             ):
                 subset_key, subset_transformer = transformer
-                transformed_data[subset_key] = subset_transformer(transformed_data[subset_key])
+                modified_data[subset_key] = subset_transformer(modified_data[subset_key])
+            elif (
+                isinstance(transformer, tuple) and
+                len(transformer) == 3 and
+                isinstance(transformer[-1], Callable) and
+                isinstance(modified_data, DataFrame)
+            ):
+                subset_key, modified_subset_key, subset_transformer = transformer
+                modified_data[modified_subset_key] = subset_transformer(modified_data[subset_key])
             else:
-                transformed_data = None
+                modified_data = None
                 break
     else:
-        transformed_data = None
-    return transformed_data
+        modified_data = None
+    return modified_data
