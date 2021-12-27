@@ -1,9 +1,12 @@
+from numpy import number
 from pandas import (
     # Index,
     MultiIndex,
 )
 
-transformers = [
+data_type = object
+
+single_transformers = [
     lambda _: _.transpose(),
 
     lambda _: _.sort_values(

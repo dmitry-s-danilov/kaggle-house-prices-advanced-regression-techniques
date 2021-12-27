@@ -1,24 +1,37 @@
-from ....data import load
+# from functools import partial
+
 from ...tools import describe as main_describe
-from ..describe_params import multi_keys
-from .describe_params import multi_params
+from .params import descriptors
+
+# describe = partial(main_describe, descriptors=descriptors)
 
 
-def describe():
+def describe(
+    data,
+    inverse=False,
+    transformers=None,
+):
     return main_describe(
-        data=load(data_keys=multi_keys),
-        **multi_params
+        data=data,
+        descriptors=descriptors,
+        inverse=inverse,
+        transformers=transformers,
     )
 
 
 if __name__ == '__main__':
     from pandas import option_context
 
-    description = describe()
+    from ....data import load
+    from ..params import default_data_keys as data_keys
+    from .params import default_multi_params as describe_params
+
+    data_sets = load(data_keys)
+    data_description = describe(data_sets, **describe_params)
 
     with option_context(
-        'display.max_rows', description.shape[0],
-        'display.max_columns', description.shape[1],
+        'display.max_rows', data_description.shape[0],
+        'display.max_columns', data_description.shape[1],
         'display.width', None,
     ):
-        print(description)
+        print(data_description)

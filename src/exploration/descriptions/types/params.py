@@ -37,7 +37,7 @@ single_transformers = [
     )
 ]
 
-multi_transformers = [
+default_multi_transformers = [
     lambda _: _.rename_axis(
         mapper=('', '', '', 'detect nulls'),
         axis='index',
@@ -49,13 +49,4 @@ multi_transformers = [
     ),
 ]
 
-single_params = dict(
-    descriptors=descriptors,
-    transformers=single_transformers,
-)
-
-
-multi_params = dict(
-    descriptors=descriptors,
-    transformers=multi_transformers,
-)
+default_multi_params = dict(transformers=default_multi_transformers)

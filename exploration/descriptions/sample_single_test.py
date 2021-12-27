@@ -3,24 +3,23 @@
 from pandas import option_context
 
 from contest.data import load
-from contest.exploration.tools import sample, transform
-from contest.exploration.descriptions.sample import transform_transformers as transformers
+from contest.exploration.descriptions.sample import (
+    describe,
+    single_transformers as describe_transformers,
+)
 
 data_key = 'test'
-n = 3, 6, 3
 
 if __name__ == '__main__':
-    description = transform(
-        data=sample(
-            data=load(data_keys=data_key),
-            n=n,
-        ),
-        transformers=transformers,
+    data_set = load(data_keys=data_key)
+    data_description = describe(
+        data=data_set,
+        transformers=describe_transformers,
     )
 
     with option_context(
-        'display.max_rows', description.shape[0],
-        'display.max_columns', description.shape[1],
+        'display.max_rows', data_description.shape[0],
+        'display.max_columns', data_description.shape[1],
         'display.width', None,
     ):
-        print(description)
+        print(data_description)

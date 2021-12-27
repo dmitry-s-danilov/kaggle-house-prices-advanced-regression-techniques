@@ -1,11 +1,7 @@
-from .describe_params import (
-    descriptors as describe_descriptors,
-
-    single_transformers as single_describe_transformers,
-    multi_transformers as multi_describe_transformers,
-
-    single_params as single_describe_params,
-    multi_params as multi_describe_params,
+from .params import (
+    descriptors,
+    single_transformers,
+    default_multi_transformers,
+    default_multi_params,
 )
-
 from .describe import describe

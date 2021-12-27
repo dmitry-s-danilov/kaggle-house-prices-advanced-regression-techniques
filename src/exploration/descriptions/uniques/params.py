@@ -54,7 +54,7 @@ single_transformers = [
     ),
 ]
 
-multi_transformers = [
+default_multi_transformers = [
     # lambda _: _.dropna(),
     lambda _: _[
         _[
@@ -124,13 +124,7 @@ multi_transformers = [
     ),
 ]
 
-single_params = dict(
-    descriptors=descriptors,
-    transformers=single_transformers,
-)
-
-multi_params = dict(
-    descriptors=descriptors,
+default_multi_params = dict(
     inverse=True,
-    transformers=multi_transformers,
+    transformers=default_multi_transformers,
 )
