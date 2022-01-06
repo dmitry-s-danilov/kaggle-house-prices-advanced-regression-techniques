@@ -2,18 +2,8 @@ from typing import Callable, Any, Union
 from pandas import DataFrame, read_csv
 
 from .paths import file_paths as default_file_paths
-
-load_params = dict(
-    # sep=',',
-    # header=0,
-    index_col='Id',
-    # na_values=['NA', 'None'],
-    # keep_default_na=True,
-)
-
-
-def default_print_info(data_set: DataFrame):
-    data_set.info(verbose=True)
+from .load_params import load_params
+from .print_info import print_info as default_print_info
 
 
 def load(
@@ -47,7 +37,3 @@ def load(
         ).get(data_keys)
 
     return data_sets
-
-
-if __name__ == '__main__':
-    load(print_info=True)

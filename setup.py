@@ -45,7 +45,7 @@ setup(
         for sub_package_name in find_packages(where=main_package_dir)
     ],
     package_data={
-        main_package_name + '.' + 'data': [
+        main_package_name + '.data.sets': [
             'train.csv',
             'test.csv',
             'sample_submission.csv',

@@ -8,4 +8,4 @@ load_params = dict(
 )
 
 if __name__ == '__main__':
-    load(**load_params)
+    data_set = load(**load_params)
