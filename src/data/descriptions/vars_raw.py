@@ -1,4 +1,4 @@
-description = [
+vars_description = [
     {
         # 'id': 0,
         'variable': 'MSSubClass',

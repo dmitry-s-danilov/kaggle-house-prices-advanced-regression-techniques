@@ -1,7 +1,7 @@
 #!/bin/python
 
 from pandas import option_context
-from contest.data import description as data_description
+from contest.data import vars_description as data_description
 
 if __name__ == '__main__':
     with option_context(

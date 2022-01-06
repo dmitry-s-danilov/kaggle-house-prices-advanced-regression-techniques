@@ -1,2 +1,2 @@
 from .sets import load
-from .description import description
+from .descriptions import vars_description
