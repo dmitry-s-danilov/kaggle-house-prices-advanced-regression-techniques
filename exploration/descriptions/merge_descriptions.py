@@ -6,12 +6,13 @@ interpreter = 'python'
 module = 'contest.utils.merge_notebooks'
 
 input_paths = [
-    'description_0_head.ipynb',
-    'description_1_multi.ipynb',
-    'description_2_1_single_train.ipynb',
-    # 'description_2_2_single_test.ipynb',
+    '0-head.ipynb',
+    '1-data_variables.ipynb',
+    '2-multi_set.ipynb',
+    '3_1-single_set-train.ipynb',
+    # '3_2-single_set-test.ipynb',
 ]
-output_path = 'description_3_merged.ipynb'
+output_path = '4-merged.ipynb'
 
 args = [
     interpreter,
