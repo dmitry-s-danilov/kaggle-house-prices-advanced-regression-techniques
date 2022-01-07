@@ -2,7 +2,7 @@ from typing import Callable, Any, Union
 from pandas import DataFrame, read_csv
 
 from .paths import file_paths as default_file_paths
-from .load_params import load_params
+from .params import load_params
 from .print_info import print_info as default_print_info
 
 

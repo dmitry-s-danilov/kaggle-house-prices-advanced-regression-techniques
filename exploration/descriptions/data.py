@@ -1,7 +1,7 @@
 #!/bin/python
 
 from pandas import option_context
-from contest.exploration.descriptions.vars import describe
+from contest.data import describe
 
 data_description = describe()
 

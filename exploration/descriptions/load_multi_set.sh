@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python -m contest.data.sets
+python -m contest.data.load

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python -m contest.data.descriptions
+python -m contest.exploration.descriptions.vars
