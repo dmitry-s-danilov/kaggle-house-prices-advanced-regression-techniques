@@ -7,10 +7,10 @@ module = 'contest.utils.merge_notebooks'
 
 input_paths = [
     '0-head.ipynb',
-    '1-data_variables.ipynb',
-    '2-multi_set.ipynb',
-    '3_1-single_set-train.ipynb',
-    # '3_2-single_set-test.ipynb',
+    '1-variables.ipynb',
+    '2-datasets.ipynb',
+    '3-dataset-1-train.ipynb',
+    # '3-dataset-2-test.ipynb',
 ]
 output_path = '4-merged.ipynb'
 
